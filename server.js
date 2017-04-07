@@ -2,6 +2,8 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
+const port = process.env.PORT || 3000;
+
 var app = express();
 
 hbs.registerPartials(__dirname + '/views/partials');
@@ -35,6 +37,7 @@ hbs.registerHelper('screamIt', (text) => {
     return text.toUpperCase();
 });
 
+
 app.get('/', (req, res) => {
    res.setHeader('Last-Modified', (new Date()).toUTCString()); //to disable cache
  //  next();  // to sort out, cache and 304 status code  https://vlasenko.org/2011/10/12/expressconnect-static-set-last-modified-to-now-to-avoid-304-not-modified/
@@ -62,4 +65,6 @@ app.get('/bad', (req, res) => {
    }) ;
 });
 
-app.listen(3000);
+app.listen(port, () => {
+    console.log(`Server is up on port ${port}`);
+});
